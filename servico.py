@@ -5,7 +5,7 @@ from bot import configurar_bot
 app = Flask(__name__)
 CORS(app)
 
-configurado, bot = configurar_bot()
+bot = configurar_bot()
 
 # Rota que retorna informações sobre o chatbot
 @app.route("/letmecook/info", methods=['GET'])
@@ -14,7 +14,7 @@ def get_informacoes():
         descricao="LetMeCook, qual sua dúvida gastronômica hoje?",
         email="leonardovbdo25@gmail.com",
         versao="1.0",
-        robo_online=configurado
+        robo_online=True
     )
 
 # Rota que recebe uma mensagem do usuário e retorna uma resposta do chatbot
