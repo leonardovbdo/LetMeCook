@@ -5,7 +5,7 @@ var server = http.Server(app)
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
 
-const URL_ROBO = "http://localhost:5000/ifba/resposta/";
+const URL_ROBO = "http://localhost:5000/letmecook/response/";
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
@@ -23,9 +23,9 @@ getRespostaRobo = (msg) => {
       const obj = JSON.parse(data);
 
       if (obj.confianca >= 0.55) {
-        io.emit('chat message', "ifbabot: " + obj.resposta);
+        io.emit('chat message', "LetMeCook: " + obj.resposta);
       } else {
-        io.emit('chat message', "ifbabot: ainda não sei responder esta pergunta, procure mais informações no site do ifba");
+        io.emit('chat message', "LetMeCook: ainda não sei responder esta pergunta, tente novamente mais tarde");
       }
     });
   });

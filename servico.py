@@ -1,26 +1,26 @@
 from flask import Flask, jsonify
 from robo import *
 
-servico = Flask("ifbabot")
+servico = Flask("letmecook")
 
 configurado, robo = configurar()
 
-@servico.get("/ifba/info")
+@servico.get("/letmecook/info")
 def get_informacoes():
     return jsonify(
-        descricao = "Robô de Atendimento do IFBA, Vitória da Conquista",
-        email = "luispscarvalho@gmail.com",
+        descricao = "LetMeCook, qual sua dúvida gastronômica hoje?",
+        email = "leonardovbdo25@gmail.com",
         versao = "1.0",
         robo_online = configurado
     )
 
-@servico.get("/ifba/resposta/<string:mensagem>")
-def get_resposta(mensagem):
-    resposta = robo.get_response(mensagem)
+@servico.get("/letmecook/response/<string:message>")
+def get_resposta(message):
+    response = robo.get_response(message)
 
     return jsonify(
-        resposta = resposta.text,
-        confianca = resposta.confidence
+        response = response.text,
+        confianca = response.confidence
     )
 
 if __name__ == "__main__":

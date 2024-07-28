@@ -4,17 +4,15 @@ import time
 import json
 
 CONVERSAS = [
-    "conversas/saudacoes.json",
-    "conversas/informacoes_basicas.json",
-    "conversas/sistemas_de_informacao.json"
+    "topics/saudacoes.json",
+    "topics/informacoes_basicas.json",
+    "topics/cook_tips.json"
 ]
 
 # 1. devolve um "treinador" de robô
 def configurar():
     time.clock = time.time
-
-    robo = ChatBot("Robô de Atendimento do IFBA")
-    treinador = ListTrainer(robo)
+    treinador = ListTrainer(ChatBot("LetMeCook"))
 
     return True, treinador
 
