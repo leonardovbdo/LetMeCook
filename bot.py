@@ -6,14 +6,14 @@ CONFIANCA_MINIMA = 0.55
 def configurar():
     time.clock = time.time
 
-    robo = ChatBot("LetMeCook", read_only = True, logic_adapters = [{"import_path": "chatterbot.logic.BestMatch"}])
+    bot = ChatBot("LetMeCook", read_only = True, logic_adapters = [{"import_path": "chatterbot.logic.BestMatch"}])
 
-    return True, robo
+    return True, bot
 
-def executar(robo):
+def executar(bot):
     while True:
         mensagem = input("digite alguma coisa...\n")
-        resposta = robo.get_response(mensagem.lower())
+        resposta = bot.get_response(mensagem.lower())
         if resposta.confidence >= CONFIANCA_MINIMA:
             print(f"LetMeCook >> {resposta.text} [confiança={resposta.confidence}]")
         else:
@@ -21,7 +21,7 @@ def executar(robo):
             print("pergunte outra coisa")
 
 if __name__ == "__main__": 
-    configurado, robo = configurar()
+    configurado, bot = configurar()
 
     if configurado:
-        executar(robo)
+        executar(bot)

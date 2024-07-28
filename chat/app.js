@@ -8,17 +8,14 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 const port = 3000;
-
 const URL = "http://localhost:5000/letmecook/response/";
 
-// Serve arquivos estáticos do diretório "public"
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'chat.html'));
 });
 
-const getRespostaRobo = async (msg) => {
+const getChatResponse = async (msg) => {
   try {
     console.log(`Fetching response for message: ${msg}`);
     const response = await axios.get(`${URL}${encodeURIComponent(msg)}`);
@@ -39,7 +36,7 @@ const getRespostaRobo = async (msg) => {
 io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     io.emit('chat message', `Você: ${msg}`);
-    getRespostaRobo(msg);
+    getChatResponse(msg);
   });
 });
 

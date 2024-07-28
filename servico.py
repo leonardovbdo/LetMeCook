@@ -1,11 +1,11 @@
 from flask import Flask, jsonify
 from flask_cors import CORS  # Importar CORS
-from robo import configurar
+from bot import configurar
 
 app = Flask(__name__)
 CORS(app)  # Ativar CORS
 
-configurado, robo = configurar()
+configurado, bot = configurar()
 
 @app.route("/letmecook/info", methods=['GET'])
 def get_informacoes():
@@ -19,7 +19,7 @@ def get_informacoes():
 @app.route("/letmecook/response/<string:message>", methods=['GET'])
 def get_resposta(message):
     try:
-        response = robo.get_response(message)
+        response = bot.get_response(message)
         return jsonify(
             response=response.text,
             confianca=response.confidence
