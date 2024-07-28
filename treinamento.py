@@ -9,7 +9,6 @@ CONVERSAS = [
     "topics/cook_tips.json"
 ]
 
-# 1. devolve um "treinador" de robô
 def configurar():
     time.clock = time.time
     treinador = ListTrainer(ChatBot("LetMeCook"))
@@ -17,7 +16,6 @@ def configurar():
     return True, treinador
 
 
-# 2. carrega as conversas a partir dos jsons
 def carregar_conversas():
     carregadas, conversas = True, []
 
@@ -33,7 +31,6 @@ def carregar_conversas():
 
     return carregadas, conversas
 
-# 3. usa o treinado para treinar o robô com as conversas
 def treinar(treinador, conversas):
     for conversa in conversas:
         for mensagens_resposta in conversa:
