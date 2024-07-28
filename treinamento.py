@@ -9,41 +9,43 @@ CONVERSAS = [
     "topics/cook_tips.json"
 ]
 
-def configurar():
+def configurar_bot():
+    """
+    Configura o chatbot LetMeCook.
+    """
     time.clock = time.time
-    treinador = ListTrainer(ChatBot("LetMeCook"))
-
+    bot = ChatBot("LetMeCook")
+    treinador = ListTrainer(bot)
     return True, treinador
 
-
 def carregar_conversas():
-    carregadas, conversas = True, []
-
-    for arquivo_de_conversas in CONVERSAS:
-        try:
+    """
+    Carrega as conversas dos arquivos JSON especificados em CONVERSAS.
+    """
+    conversas = []
+    try:
+        for arquivo_de_conversas in CONVERSAS:
             with open(arquivo_de_conversas, "r", encoding="utf-8") as arquivo:
                 para_treinar = json.load(arquivo)
-                conversas.append(para_treinar["conversas"])
-
-                arquivo.close()
-        except Exception as e:
-            carregadas = False
-
-    return carregadas, conversas
+                conversas.extend(para_treinar["conversas"])
+        return True, conversas
+    except Exception as e:
+        print(f"Erro ao carregar conversas: {e}")
+        return False, []
 
 def treinar(treinador, conversas):
+    """
+    Treina o chatbot com as conversas fornecidas.
+    """
     for conversa in conversas:
-        for mensagens_resposta in conversa:
-            mensagens = mensagens_resposta["mensagens"]
-            resposta = mensagens_resposta["resposta"]
-
-            print(f"treinando o robô, mensagens: {mensagens}, resposta: {resposta}")
-            for mensagem in mensagens:
-                treinador.train([mensagem, resposta])
+        mensagens = conversa["mensagens"]
+        resposta = conversa["resposta"]
+        print(f"Treinando o robô, mensagens: {mensagens}, resposta: {resposta}")
+        for mensagem in mensagens:
+            treinador.train([mensagem, resposta])
 
 if __name__ == "__main__":
-    configurado, treinador = configurar()
-
+    configurado, treinador = configurar_bot()
     if configurado:
         carregadas, conversas = carregar_conversas()
         if carregadas:

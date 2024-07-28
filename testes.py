@@ -1,14 +1,10 @@
 import unittest
-from bot import configurar, CONFIANCA_MINIMA
+from bot import configurar_bot, CONFIANCA_MINIMA
 
 class TesteBot(unittest.TestCase):
     def setUp(self):
         """Configura o bot antes de cada teste."""
-        self.configurado, self.bot = configurar()
-
-    def verificar_configuracao(self):
-        """Verifica se o bot está corretamente configurado."""
-        self.assertTrue(self.configurado)
+        self.bot = configurar_bot()
 
     def verificar_resposta(self, mensagem, resposta_esperada):
         """Verifica se o bot responde corretamente com confiança adequada."""

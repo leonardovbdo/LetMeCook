@@ -1,12 +1,13 @@
 from flask import Flask, jsonify
-from flask_cors import CORS  # Importar CORS
-from bot import configurar
+from flask_cors import CORS
+from bot import configurar_bot
 
 app = Flask(__name__)
-CORS(app)  # Ativar CORS
+CORS(app)
 
-configurado, bot = configurar()
+configurado, bot = configurar_bot()
 
+# Rota que retorna informações sobre o chatbot
 @app.route("/letmecook/info", methods=['GET'])
 def get_informacoes():
     return jsonify(
@@ -16,6 +17,7 @@ def get_informacoes():
         robo_online=configurado
     )
 
+# Rota que recebe uma mensagem do usuário e retorna uma resposta do chatbot
 @app.route("/letmecook/response/<string:message>", methods=['GET'])
 def get_resposta(message):
     try:
@@ -30,4 +32,4 @@ def get_resposta(message):
         ), 500
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)  # Certifique-se de que a porta está correta
+    app.run(debug=True, port=5000)
